@@ -100,20 +100,51 @@ const rawInput = String.raw`130762
 119501
 `;
 
-const exampleInput = ["12", "14", "1969", "100756"];
+const rawArray = rawInput.split("\n");
 
-const inputArray = rawInput.split("\n");
+const part1 = () => {
+  const exampleInput = ["12", "14", "1969", "100756"];
 
-const fuelValues = inputArray.map(x => {
-  const y = parseInt(x);
-  const step1 = y / 3;
-  const step2 = Math.floor(step1);
-  const step3 = step2 - 2;
-  return step3;
-});
+  const inputArray = rawInput.split("\n");
 
-let totalFuel = 0;
-fuelValues.forEach(v => {
-  !isNaN(v) ? (totalFuel += v) : null;
-});
-console.log(totalFuel);
+  const fuelValues = inputArray.map(x => {
+    const y = parseInt(x);
+    const step1 = y / 3;
+    const step2 = Math.floor(step1);
+    const step3 = step2 - 2;
+    return step3;
+  });
+
+  let totalFuel = 0;
+  fuelValues.forEach(v => {
+    !isNaN(v) ? (totalFuel += v) : null;
+  });
+
+  return totalFuel;
+};
+
+// console.log(part1());
+// end part one
+
+// part 2!
+const part2 = () => {
+  const examples = [14, 1969, 100756];
+  let total = 0;
+
+  const calcFuelNeeded = inputWeight => {
+    const result = Math.floor(parseInt(inputWeight) / 3) - 2;
+
+    if (result > 0) {
+      total += result;
+      calcFuelNeeded(result);
+    } else {
+      return total;
+    }
+    return result;
+  };
+
+  rawArray.forEach(ex => calcFuelNeeded(ex));
+  return total;
+};
+
+console.log(part2());
