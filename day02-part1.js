@@ -31,7 +31,6 @@ const part1 = example => {
       startingOpcodeIndex = index;
     }
   });
-  console.log("before:", example);
 
   for (let index = 0; index < example.length; index++) {
     const value = example[index];
@@ -41,29 +40,19 @@ const part1 = example => {
       let input2 = example[example[index + 2]];
       let answerLocation = example[index + 3];
       if (value === 1) {
-        // add
-        console.log(
-          `Going to add ${input1} and ${input2} at ${answerLocation}`
-        );
         example[answerLocation] = input1 + input2;
       } else if (value === 2) {
-        // multiply
-        console.log(
-          `Going to multiply ${input1} and ${input2} at ${answerLocation}`
-        );
         example[answerLocation] = input1 * input2;
       } else if (value === 99) {
-        // stop
-        console.log(`Stopping.`);
-      } else {
-        // fail
-        console.log(`Fail.`);
+        break;
       }
     }
   }
-  console.log("after:", example);
+  return example[0];
 };
 
 // part1(sampleAsInt);
-part1(rawArray2);
-// console.log(part1());
+// part1(rawArray2);
+// console.log(part1(rawArray2));
+
+module.exports = { part1 };
